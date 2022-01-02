@@ -1,8 +1,8 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
-import { Home } from './src/screens/Home';
-import { Scheduling } from './src/screens/Scheduling';
+
+import { SchedulingComplete } from './src/screens/SchedulingComplete';
 
 import {
   useFonts,
@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Scheduling />
+      <SchedulingComplete />
     </ThemeProvider>
   );
 }
