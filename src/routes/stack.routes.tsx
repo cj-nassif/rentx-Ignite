@@ -13,7 +13,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 export function StackRoutes() {
     return (
-        <Navigator screenOptions={{ headerMode: 'none' }} initialRouteName="Splash">
+        <Navigator screenOptions={{ headerMode: false }} initialRouteName="Splash">
             <Screen
                 name="Splash"
                 component={Splash}
@@ -23,6 +23,9 @@ export function StackRoutes() {
             <Screen
                 name="Home"
                 component={Home}
+                options={{
+                    gestureEnabled: false
+                }}
 
 
             />
