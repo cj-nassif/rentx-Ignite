@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
+import {
+    TextInputProps,
+} from 'react-native';
 
 import { BorderlessButton } from 'react-native-gesture-handler';
 
