@@ -11,6 +11,12 @@
     "splash": {
       "image": "./assets/splash.png",
       "backgroundColor": "#1B1B1F"
+    },
+    "android": {
+      "package": "com.rentx"
+    },
+    "ios": {
+      "bundleIdentifier": "com.rentx"
     }
   }
 }
