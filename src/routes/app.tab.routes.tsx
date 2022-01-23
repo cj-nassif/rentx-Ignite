@@ -7,6 +7,7 @@ import { useTheme } from "styled-components";
 import { AppStackRoutes } from "./app.stack.routes";
 import { Home } from "../screens/Home";
 import { MyCars } from "../screens/MyCars";
+import { Profile } from "../screens/Profile";
 
 import HomeSvg from '../assets/home.svg';
 import CarSvg from '../assets/car.svg';
@@ -43,8 +44,8 @@ export function AppTabRoutes() {
                 }}
             />
             <Screen
-                name="Profile"
-                component={Home}
+                name="MyCars"
+                component={MyCars}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <CarSvg width={24} height={24} fill={color} />
@@ -52,8 +53,8 @@ export function AppTabRoutes() {
                 }}
             />
             <Screen
-                name="MyCars"
-                component={MyCars}
+                name="Profile"
+                component={Profile}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <PeopleSvg width={24} height={24} fill={color} />
