@@ -28,6 +28,7 @@ import {
     Footer
 } from './styles';
 
+
 export function SignIn() {
 
     const [email, setEmail] = useState('');
@@ -68,6 +69,8 @@ export function SignIn() {
     function handleNewAccount() {
         navigation.navigate('SignUpFirstStep' as never)
     }
+
+
 
     return (
         <KeyboardAvoidingView
