@@ -17,6 +17,9 @@
     },
     "ios": {
       "bundleIdentifier": "com.rentx"
-    }
+    },
+    "plugins": [
+      "expo-image-picker"
+    ]
   }
 }
