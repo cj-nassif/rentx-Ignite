@@ -25,6 +25,8 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import * as Yup from 'yup';
 
+import { useNetInfo } from '@react-native-community/netinfo';
+
 import {
   Container,
   Header,
@@ -54,6 +56,8 @@ export function Profile() {
   const [name, setName] = useState(user.name);
   const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
+  const netInfo = useNetInfo();
+
   const theme = useTheme();
 
   const navigation = useNavigation();
@@ -64,7 +68,11 @@ export function Profile() {
 
 
   function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
-    setOption(optionSelected)
+    if (netInfo.isConnected === false && optionSelected === 'passwordEdit') {
+      Alert.alert('Você está offline', 'Para mudar a senha conecte-se a internet')
+    } else {
+      setOption(optionSelected)
+    }
   }
 
   async function handleAvatarSelect() {
@@ -98,7 +106,7 @@ export function Profile() {
         user_id: user.user_id,
         email: user.email,
         name,
-        driver_license: user.driver_license,
+        driver_license: driverLicense,
         avatar,
         token: user.token
       });

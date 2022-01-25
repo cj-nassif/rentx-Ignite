@@ -5,6 +5,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 import { api } from '../../services/api';
 
+import { synchronize } from '@nozbe/watermelondb/sync';
+import { database } from '../../database';
+import { Car as ModelCar } from '../../database/model/Car';
+
 import { useNetInfo } from '@react-native-community/netinfo';
 
 import {
@@ -21,12 +25,11 @@ import { Car } from '../../components/Car';
 import { LoadAnimation } from '../../components/LoadAnimation';
 import { useNavigation } from '@react-navigation/native';
 
-import { CarDTO } from '../../dtos/CarDTO';
 
 
 export function Home() {
 
-    const [cars, setCars] = useState<CarDTO[]>([]);
+    const [cars, setCars] = useState<ModelCar[]>([]);
     const [loading, setLoading] = useState(true);
 
     const navigation = useNavigation();
@@ -34,10 +37,27 @@ export function Home() {
     const netInfo = useNetInfo();
 
 
-    function handleCarDetails(car: CarDTO) {
+    function handleCarDetails(car: ModelCar) {
         navigation.navigate('CarDetails' as never, { car } as never)
     }
 
+    async function offlineSynchronize() {
+        await synchronize({
+            database,
+            pullChanges: async ({ lastPulledAt }) => { //Busca mudanças no banco de dados API
+                const response = await api
+                    .get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`);
+
+                const { changes, latestVersion } = response.data;
+                return { changes, timestamp: latestVersion }
+            },
+            pushChanges: async ({ changes }) => { // Envia mudanças para o banco de dados pegando do banco de dados local
+                const user = changes.users;
+                await api.post('/users/sync', user);
+
+            }
+        })
+    }
 
 
     useEffect(() => {
@@ -45,9 +65,13 @@ export function Home() {
 
         async function fetchCars() {
             try {
-                const response = await api.get('/cars');
+
+                const carCollection = database.get<ModelCar>('cars');
+                const cars = await carCollection.query().fetch();
+
                 if (isMounted) {
-                    setCars(response.data)
+                    setCars(cars)
+
                 }
 
             } catch (error) {
@@ -65,11 +89,10 @@ export function Home() {
     }, [])
 
     useEffect(() => {
-        if (netInfo.isConnected) {
-            Alert.alert('Você esta On-line')
-        } else {
-            Alert.alert('Você esta Off-line')
+        if (netInfo.isConnected === true) {
+            offlineSynchronize();
         }
+
     }, [netInfo.isConnected])
 
     return (
