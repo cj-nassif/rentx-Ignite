@@ -42,8 +42,6 @@ import {
   OptionTitle,
   Section,
 } from './styles';
-import id from 'date-fns/esm/locale/id/index.js';
-
 
 
 

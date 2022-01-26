@@ -7,15 +7,16 @@ import { Scheduling } from "../screens/Scheduling";
 import { Confirmation } from "../screens/Confirmation";
 import { SchedulingDetails } from "../screens/SchedulingDetails";
 import { MyCars } from "../screens/MyCars";
+import { AppTabRoutes } from "./app.tab.routes";
 
 const { Navigator, Screen } = createStackNavigator();
 
 export function AppStackRoutes() {
     return (
-        <Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+        <Navigator screenOptions={{ headerShown: false }} initialRouteName="AppTabRoutes">
             <Screen
-                name="Home"
-                component={Home}
+                name="AppTabRoutes"
+                component={AppTabRoutes}
             />
             <Screen
                 name="CarDetails"
@@ -32,10 +33,7 @@ export function AppStackRoutes() {
             <Screen
                 name="Confirmation"
                 component={Confirmation}
-            />
-            <Screen
-                name="MyCars"
-                component={MyCars}
+
             />
         </Navigator>
     )

@@ -13,7 +13,7 @@ flex: 1;
 justify-content: center;
 align-items: center;
 
-padding-bottom: 80px;
+padding-bottom: 30px;
 `;
 
 export const Title = styled.Text`

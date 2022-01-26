@@ -102,7 +102,7 @@ export function CarDetails() {
         async function fetchCarUpdated() {
             const response = await api.get(`/cars/${car.id}`)
             setCarUpdated(response.data);
-            console.log(carUpdated)
+
         }
         if (netInfo.isConnected === true) {
             fetchCarUpdated();
@@ -184,10 +184,6 @@ export function CarDetails() {
                     </Accessories>
                 }
                 <About>
-                    {car.about}
-                    {car.about}
-                    {car.about}
-                    {car.about}
                     {car.about}
                 </About>
             </Animated.ScrollView>
